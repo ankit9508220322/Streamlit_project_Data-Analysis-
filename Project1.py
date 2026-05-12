@@ -11,7 +11,7 @@ df1 = pd.read_csv("simple1.csv", encoding='latin1')
 def load_investor(investor):
         st.title(investor)
         last5data=df[df['investors'].str.contains(investor, na=False)][['date','city','startup','amount','round']]
-        st.subheader('most resent  investor ')
+        st.subheader('Most Resent  investor ')
         st.dataframe(last5data)
         # some print data
 # all data in biggest investament
@@ -30,14 +30,14 @@ def load_investor(investor):
         # col1,col2,col3 = st.columns(3)
         # with col1:
         bid_serise=df[df['investors'].str.contains(investor)].groupby('startup')['amount'].sum().sort_values(ascending=False).head(10)
-        st.subheader('most biggest investment Graph')
+        st.subheader('Most biggest investment Graph')
         fig,ax = plt.subplots()
         ax.bar(bid_serise.values, bid_serise.index)
         st.pyplot(fig)
         
         # with col2:
         vertical = df[df['investors'].str.contains(investor,na=False)]['city'].value_counts()
-        st.subheader("city name")
+        st.subheader("City name")
         fig1,ax1 = plt.subplots()
         ax1.pie(vertical,labels=vertical.index,autopct='%0.1f%%')
         st.pyplot(fig1)
@@ -74,7 +74,7 @@ def overAllAnalysis():
     st.metric('total',str(total1) + 'cr')
 
 
-option=st.sidebar.selectbox('select one',['overall analysis','startup','investor'])
+option=st.sidebar.selectbox('Select One Options',['Overall Analysis','Startup','investor'])
 if option == 'overall analysis':
     btn0 = st.sidebar.button("Show OverAll Analysis")
     if btn0:
@@ -82,13 +82,14 @@ if option == 'overall analysis':
 
 
 
-elif option == 'startup':
-    st.sidebar.selectbox('select startup',sorted(df['startup'].unique().tolist()))
-    btn1=st.sidebar.button("find startup")
-    st.title("startup nalysis")
+elif option == 'Startup':
+    st.sidebar.selectbox('Select Startup',sorted(df['startup'].unique().tolist()))
+    btn1=st.sidebar.button("Find Startup")
+    st.title("Dont add data please nest time try ")
+    st.title("Startup Analysis")
     
 else:
-    select_investor= st.sidebar.selectbox('select startup',sorted(set(df['investors'].str.split(',').sum())))
+    select_investor= st.sidebar.selectbox('Select startup',sorted(set(df['investors'].str.split(',').sum())))
     btn2=st.sidebar.button("find invester")
     if btn2:
         load_investor(select_investor)
