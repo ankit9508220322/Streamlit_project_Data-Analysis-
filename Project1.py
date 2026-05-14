@@ -74,6 +74,7 @@ def overAllAnalysis():
     st.metric('total',str(total1) + 'cr')
 
 
+# main code and main page start 
 option=st.sidebar.selectbox('Select One Options',['Overall Analysis','Startup','investor'])
 if option == 'overall analysis':
     btn0 = st.sidebar.button("Show OverAll Analysis")
@@ -93,34 +94,37 @@ else:
     btn2=st.sidebar.button("find invester")
     if btn2:
         load_investor(select_investor)
+# /////////////////////////////////////////////
 
 
-# # cricket information
-# df2 = pd.read_csv("ipl20081.csv").head(3)
-# def iplinformation():
-#     st.title("all ipl information: ")
-#     df2
-# iplinformation()
-# df2 = pd.read_csv("ipl20081.csv")
-# # st.title("Ipl information ")
-# option1=st.sidebar.selectbox('Ipl Information',['All ipl data','city','playrs_Name'])
-# if option1 == 'All ipl data':
+# cricket information
+df2 = pd.read_csv("ipl20081.csv").head(3)
+def iplinformation():
+    st.title("all ipl information: ")
+    df2
+iplinformation()
+df2 = pd.read_csv("ipl20081.csv")
+# delivery ipl data sheet
+data=pd.read_csv('deliveries.csv')
+# st.title("Ipl information ")
+option1=st.sidebar.selectbox('Ipl Information',['All ipl data','playrs_Name','Highest Run'])
+if option1 == 'All ipl data':
     
-#     btn0 = st.sidebar.button("cate information")
-#     if btn0:
-#          iplinformation()
+    btn0 = st.sidebar.button("cate information")
+    if btn0:
+         iplinformation()
 
 
 
-# elif option1 == 'city':
-#     st.sidebar.selectbox('select startup',df2['city'].drop_duplicates(inplace=False).tolist())
-#     btn1=st.sidebar.button("find scity")
-#     st.title("city name")
+elif option1 == 'playrs_Name':
+    st.sidebar.selectbox('FInput one name Find All Info',data['batsman'].drop_duplicates().tolist())
+    btn1=st.sidebar.button("find Batsman Name ")
+    st.title("playars Name")
     
-# else:
-#     playrs_Name= st.sidebar.selectbox('Teame Name',df2['venue'].str.split(',').str[0].drop_duplicates().tolist())
-#     btn2=st.sidebar.button("playrs_Name")
-#     if btn2:
-#         load_investor(playrs_Name)
+else:
+    playrs_Name= st.sidebar.selectbox('Teame Name')
+    btn2=st.sidebar.button("playrs_Name")
+    if btn2:
+        load_investor(playrs_Name)
 
     
