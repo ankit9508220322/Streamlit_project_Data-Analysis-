@@ -100,55 +100,47 @@ else:
 # cricket information
 df2 = pd.read_csv("ipl20081.csv").head(3)
 def iplinformation():
-    st.title("all ipl information: ")
+    st.title("IPL OLD Data")
     df2
 iplinformation()
 df2 = pd.read_csv("ipl20081.csv")
 # delivery ipl data sheet
 data=pd.read_csv('deliveries.csv')
+data2=pd.read_csv('ipl-matches_data.csv')
 # st.title("Ipl information ")
 def All_teame_name(teame_info):
         st.title(teame_info)
-        last5data = data[data['batsman'] == teame_info].drop(columns=['match_id','dismissal_kind','player_dismissed','penalty_runs','bye_runs']).set_index('batsman')
+        last5data=data2[(data2['Season'] == teame_info) &(data2['WinningTeam'].notnull()) &(data2['City'].notnull())][['City','Season','Date','TossWinner','WinningTeam']]
+
+
+        # last5data = data[data['batsman'] == teame_info].drop(columns=['match_id','dismissal_kind','player_dismissed','penalty_runs','bye_runs']).set_index('batsman')
         st.subheader('Most Resent  investor ')
-
         st.dataframe(last5data)
-
-option1=st.sidebar.selectbox('Ipl Information',['All ipl data','playrs_Name','Highest'])
-
+st.title("IPL OLD Data")
+option1=st.sidebar.selectbox('Ipl Information',['All ipl data','Select_Year','Highest'])
 if option1 == 'All ipl data':
-    
-    btn0 = st.sidebar.button("cate information")
 
+    btn0 = st.sidebar.button("cate information")
     if btn0:
          iplinformation()
 
-
-elif option1 == 'playrs_Name':
-
+elif option1 == 'Select_Year':
     names=st.sidebar.selectbox(
         'FInput one name Find All Info',
-        
-        data['batsman'].drop_duplicates().tolist()
+        data2['Season'].drop_duplicates().sort_values(ascending=True)
     )
-
-    btn1=st.sidebar.button("find Batsman Name ")
-
-    st.title("playars Name")
-
+    btn1=st.sidebar.button("Click Hear")
+    st.title("pyear")
     st.write(names)
-
     if btn1:
       All_teame_name(names)
          
-    
 else:
 
     playrs_Name= st.sidebar.selectbox(
         'Teame Name',
         data['batting_team'].drop_duplicates().tolist()
     )
-
     btn2=st.sidebar.button("playrs_Name")
 
     if btn2:
