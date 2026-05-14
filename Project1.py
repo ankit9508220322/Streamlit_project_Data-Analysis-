@@ -107,24 +107,49 @@ df2 = pd.read_csv("ipl20081.csv")
 # delivery ipl data sheet
 data=pd.read_csv('deliveries.csv')
 # st.title("Ipl information ")
-option1=st.sidebar.selectbox('Ipl Information',['All ipl data','playrs_Name','Highest Run'])
+def All_teame_name(teame_info):
+        st.title(teame_info)
+        last5data = data[data['batsman'] == teame_info].drop(columns=['match_id','dismissal_kind','player_dismissed','penalty_runs','bye_runs']).set_index('batsman')
+        st.subheader('Most Resent  investor ')
+
+        st.dataframe(last5data)
+
+option1=st.sidebar.selectbox('Ipl Information',['All ipl data','playrs_Name','Highest'])
+
 if option1 == 'All ipl data':
     
     btn0 = st.sidebar.button("cate information")
+
     if btn0:
          iplinformation()
 
 
-
 elif option1 == 'playrs_Name':
-    st.sidebar.selectbox('FInput one name Find All Info',data['batsman'].drop_duplicates().tolist())
+
+    names=st.sidebar.selectbox(
+        'FInput one name Find All Info',
+        
+        data['batsman'].drop_duplicates().tolist()
+    )
+
     btn1=st.sidebar.button("find Batsman Name ")
+
     st.title("playars Name")
+
+    st.write(names)
+
+    if btn1:
+      All_teame_name(names)
+         
     
 else:
-    playrs_Name= st.sidebar.selectbox('Teame Name')
+
+    playrs_Name= st.sidebar.selectbox(
+        'Teame Name',
+        data['batting_team'].drop_duplicates().tolist()
+    )
+
     btn2=st.sidebar.button("playrs_Name")
+
     if btn2:
         load_investor(playrs_Name)
-
-    
