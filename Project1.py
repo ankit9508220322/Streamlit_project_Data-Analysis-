@@ -107,17 +107,20 @@ df2 = pd.read_csv("ipl20081.csv")
 # delivery ipl data sheet
 data=pd.read_csv('deliveries.csv')
 data2=pd.read_csv('ipl-matches_data.csv')
+
+
 # st.title("Ipl information ")
 def All_teame_name(teame_info):
         st.title(teame_info)
         last5data=data2[(data2['Season'] == teame_info) &(data2['WinningTeam'].notnull()) &(data2['City'].notnull())][['City','Season','Date','TossWinner','WinningTeam']]
 
-
         # last5data = data[data['batsman'] == teame_info].drop(columns=['match_id','dismissal_kind','player_dismissed','penalty_runs','bye_runs']).set_index('batsman')
         st.subheader('Most Resent  investor ')
         st.dataframe(last5data)
+
+
 st.title("IPL OLD Data")
-option1=st.sidebar.selectbox('Ipl Information',['All ipl data','Select_Year','Highest'])
+option1=st.sidebar.selectbox('Ipl Information old',['All ipl data','Select_Year','Highest'])
 if option1 == 'All ipl data':
 
     btn0 = st.sidebar.button("cate information")
@@ -145,3 +148,27 @@ else:
 
     if btn2:
         load_investor(playrs_Name)
+    # //////////////////////
+# all ipl 2026 data function 
+ipl26 = pd.read_csv("ipl_2026_deliveries.csv")
+
+def All_2026_data(ipl_2026):
+
+     st.title(f"one Cricketer information 2026 IPL - {ipl_2026}")
+
+     Alldata2026 = (ipl26[ipl26['striker'] == ipl_2026].groupby(['striker','season','date','batting_team'],as_index=False)['runs_of_bat'].sum().sort_values(by='runs_of_bat', ascending=True))
+
+    #  st.subheader("one teame information",st.title(ipl_2026))
+     st.dataframe(Alldata2026)
+
+st.title("New_2026_ipl_data")
+
+ipl_2026 = st.sidebar.selectbox('Ipl_2026_info',ipl26['striker'].drop_duplicates().tolist())
+
+btni = st.sidebar.button("Click me",key="btni")
+if btni:
+     All_2026_data(ipl_2026)
+
+
+
+
