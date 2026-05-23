@@ -163,6 +163,8 @@ else:
     if btn2:
         load_investor(playrs_Name)
     # //////////////////////
+
+
 # all ipl 2026 data function 
 ipl26 = pd.read_csv("ipl_2026_deliveries.csv")
 
@@ -182,6 +184,15 @@ ipl_2026 = st.sidebar.selectbox('Ipl_2026_info',ipl26['striker'].drop_duplicates
 btni = st.sidebar.button("Click me",key="btni")
 if btni:
      All_2026_data(ipl_2026)
+
+# ////////////////////////////////// new chapter start
+st.title("This project information all Ola ")
+option2=st.sidebar.selectbox('ola information',['select Options','City_name','vehical_Name'])
+if option2 == 'City_name':
+     st.title("jii")
+elif option2 == "vehical_Name":
+     print("not data found ")
+
 
 
 
