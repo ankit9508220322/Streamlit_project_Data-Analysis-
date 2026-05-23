@@ -135,10 +135,10 @@ def All_teame_name(teame_info):
         st.dataframe(most)
 
         st.title("Team One information ")
-        df1["Team1"].value_counts().plot(kind='bar')
+        data2["Team1"].value_counts().plot(kind='bar')
         plt.title("Team1 Count")
         plt.show()
-
+       
 st.title("IPL OLD Data")
 options=st.sidebar.selectbox('Ipl Old Information Data',['Select options','All ipl data','Select_Year','Highest'])
 
