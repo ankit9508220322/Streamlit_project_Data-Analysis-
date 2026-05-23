@@ -134,8 +134,21 @@ def All_teame_name(teame_info):
         most=data2[["Team1","Team2","Venue",'WinningTeam']].drop_duplicates(subset=['Team1','Team2','Venue']).head()
         st.dataframe(most)
 
-        st.title("Team One information ")
-        data2["Team1"].value_counts().plot(kind='bar')
+st.title("Team1 Bar Graph")
+# Count values
+team_count = data2["Teame1"].value_counts()
+
+# Create graph
+fig, ax = plt.subplots()
+
+team_count.plot(kind='bar', ax=ax)
+
+ax.set_title("Team1 Match Count")
+ax.set_xlabel("Teams")
+ax.set_ylabel("Count")
+
+# Show graph in streamlit
+st.pyplot(fig)
        
 st.title("IPL OLD Data")
 options=st.sidebar.selectbox('Ipl Old Information Data',['Select options','All ipl data','Select_Year','Highest'])
