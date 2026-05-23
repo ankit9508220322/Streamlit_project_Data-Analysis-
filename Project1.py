@@ -126,7 +126,6 @@ def All_teame_name(teame_info):
         st.title(teame_info)
         last5data=data2[(data2['Season'] == teame_info) &(data2['WinningTeam'].notnull()) &(data2['City'].notnull())][['City','Season','Date','TossWinner','WinningTeam']]
         
-
         # last5data = data[data['batsman'] == teame_info].drop(columns=['match_id','dismissal_kind','player_dismissed','penalty_runs','bye_runs']).set_index('batsman')
         st.subheader('All information this Activity')
         st.dataframe(last5data)
@@ -134,21 +133,6 @@ def All_teame_name(teame_info):
         most=data2[["Team1","Team2","Venue",'WinningTeam']].drop_duplicates(subset=['Team1','Team2','Venue']).head()
         st.dataframe(most)
 
-st.title("Team1 Bar Graph")
-# Count values
-team_count = data2["Team1"].value_counts()
-
-# Create graph
-fig, ax = plt.subplots()
-
-team_count.plot(kind='bar', ax=ax)
-
-ax.set_title("Team1 Match Count")
-ax.set_xlabel("Teams")
-ax.set_ylabel("Count")
-
-# Show graph in streamlit
-st.pyplot(fig)
        
 st.title("IPL OLD Data")
 options=st.sidebar.selectbox('Ipl Old Information Data',['Select options','All ipl data','Select_Year','Highest'])
@@ -164,13 +148,10 @@ elif options == 'Select_Year':
         data2['Season'].drop_duplicates().sort_values(ascending=True)
     )
     btn1=st.sidebar.button("Click Hear")
-    # st.title("plyear")
-    # st.write(names)
     if btn1:
       All_teame_name(names)
-         
-else:
 
+else:
     playrs_Name= st.sidebar.selectbox(
         'Teame Name',
         data['batting_team'].drop_duplicates().tolist()
@@ -178,7 +159,7 @@ else:
     btn2=st.sidebar.button("playrs_Name")
 
     if btn2:
-        load_investor(playrs_Name)
+        All_teame_name(playrs_Name)
     # //////////////////////
 
 
