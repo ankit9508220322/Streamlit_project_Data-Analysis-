@@ -125,13 +125,19 @@ data2=pd.read_csv('ipl-matches_data.csv')
 def All_teame_name(teame_info):
         st.title(teame_info)
         last5data=data2[(data2['Season'] == teame_info) &(data2['WinningTeam'].notnull()) &(data2['City'].notnull())][['City','Season','Date','TossWinner','WinningTeam']]
-        most=data2[["Team1","Team2","Venue",'WinningTeam']].drop_duplicates(subset=['Team1','Team2','Venue']).head()
-        st.dataframe(most)
+        
 
         # last5data = data[data['batsman'] == teame_info].drop(columns=['match_id','dismissal_kind','player_dismissed','penalty_runs','bye_runs']).set_index('batsman')
         st.subheader('All information this Activity')
         st.dataframe(last5data)
+        st.title("second information ")
+        most=data2[["Team1","Team2","Venue",'WinningTeam']].drop_duplicates(subset=['Team1','Team2','Venue']).head()
+        st.dataframe(most)
 
+        st.title("Team One information ")
+        df1["Team1"].value_counts().plot(kind='bar')
+        plt.title("Team1 Count")
+        plt.show()
 
 st.title("IPL OLD Data")
 options=st.sidebar.selectbox('Ipl Old Information Data',['Select options','All ipl data','Select_Year','Highest'])
