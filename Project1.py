@@ -110,23 +110,23 @@ df2.drop_duplicates(subset=[
      ])
 
 
-def iplinformation():
-     pass
-    # st.title("IPL OLD Data")
-    # df2
-iplinformation()
+# def iplinformation():
+#      pass
+#     # st.title("IPL OLD Data")
+#     # df2
+# iplinformation()
 
 df2 = pd.read_csv("ipl20081.csv")
 # delivery ipl data sheet
 data=pd.read_csv('deliveries.csv')
-data2=pd.read_csv('ipl-matches_data.csv')
 
-
-# st.title("Ipl information ")
-
+# olt data this
+data2=pd.read_csv('ipl-matches_data.csv') 
 def All_teame_name(teame_info):
         st.title(teame_info)
         last5data=data2[(data2['Season'] == teame_info) &(data2['WinningTeam'].notnull()) &(data2['City'].notnull())][['City','Season','Date','TossWinner','WinningTeam']]
+        most=data2[["Team1","Team2","Venue",'WinningTeam']].drop_duplicates(subset=['Team1','Team2','Venue']).head()
+        st.dataframe(most)
 
         # last5data = data[data['batsman'] == teame_info].drop(columns=['match_id','dismissal_kind','player_dismissed','penalty_runs','bye_runs']).set_index('batsman')
         st.subheader('All information this Activity')
@@ -185,29 +185,7 @@ btni = st.sidebar.button("Click me",key="btni")
 if btni:
      All_2026_data(ipl_2026)
 
-# ////////////////////////////////// new chapter start
-ola = pd.read_csv('ola.csv')
-def ola_information(ola):
-     st.title(ola)
-     pass
-    #  data3=ola[['Pickup_Location','Drop_Location','Date','Time']].dropna().drop_duplicates().head(10)
-    #  st.dataframe(data3)
-st.title("all ola data")
-data3=ola[['Pickup_Location','Drop_Location','Date','Time']].dropna().drop_duplicates().head(10)
-st.dataframe(data3)
-# option2=st.sidebar.selectbox('ola information',['select Options','City_name','vehical_Name'])
-# if option2 == 'City_name':
-#      response=st.sidebar.selectbox(
-#           'all info'
-#         #   data2['Season'].drop_duplicates().sort_values(ascending=True)
-#      )
-#      btn3 = st.sidebar.button("click me")
-#      if btn3:
-#           ola_information(response)
-#      st.title("jii")
-# elif option2 == "vehical_Name":
-#      print("not data found ")
-
+# ////////////////////////////////// new 2022
 
 
 
