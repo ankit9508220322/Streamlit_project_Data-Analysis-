@@ -193,8 +193,8 @@ st.title("This project information all Ola ")
 option2=st.sidebar.selectbox('ola information',['select Options','City_name','vehical_Name'])
 if option2 == 'City_name':
      response=st.sidebar.selectbox(
-          'all info',
-          data2['Season'].drop_duplicates().sort_values(ascending=True)
+          'all info'
+        #   data2['Season'].drop_duplicates().sort_values(ascending=True)
      )
      btn3 = st.sidebar.button("click me")
      if btn3:
