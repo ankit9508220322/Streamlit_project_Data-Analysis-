@@ -186,22 +186,27 @@ if btni:
      All_2026_data(ipl_2026)
 
 # ////////////////////////////////// new chapter start
+ola = pd.read_csv('ola.csv')
 def ola_information(ola):
      st.title(ola)
      pass
-st.title("This project information all Ola ")
-option2=st.sidebar.selectbox('ola information',['select Options','City_name','vehical_Name'])
-if option2 == 'City_name':
-     response=st.sidebar.selectbox(
-          'all info'
-        #   data2['Season'].drop_duplicates().sort_values(ascending=True)
-     )
-     btn3 = st.sidebar.button("click me")
-     if btn3:
-          ola_information(response)
-     st.title("jii")
-elif option2 == "vehical_Name":
-     print("not data found ")
+    #  data3=ola[['Pickup_Location','Drop_Location','Date','Time']].dropna().drop_duplicates().head(10)
+    #  st.dataframe(data3)
+st.title("all ola data")
+data3=ola[['Pickup_Location','Drop_Location','Date','Time']].dropna().drop_duplicates().head(10)
+st.dataframe(data3)
+# option2=st.sidebar.selectbox('ola information',['select Options','City_name','vehical_Name'])
+# if option2 == 'City_name':
+#      response=st.sidebar.selectbox(
+#           'all info'
+#         #   data2['Season'].drop_duplicates().sort_values(ascending=True)
+#      )
+#      btn3 = st.sidebar.button("click me")
+#      if btn3:
+#           ola_information(response)
+#      st.title("jii")
+# elif option2 == "vehical_Name":
+#      print("not data found ")
 
 
 
