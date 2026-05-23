@@ -98,11 +98,24 @@ else:
 
 
 # cricket information
-df2 = pd.read_csv("ipl20081.csv").head(3)
+df2 = pd.read_csv("ipl20081.csv")
+df2.drop_duplicates(subset=[
+     "match_id",
+     "season_id",
+     "balls_per_over",
+     "city",
+     "match_date",
+     "gender",
+     "match_type"
+     ])
+
+
 def iplinformation():
-    st.title("IPL OLD Data")
-    df2
+     pass
+    # st.title("IPL OLD Data")
+    # df2
 iplinformation()
+
 df2 = pd.read_csv("ipl20081.csv")
 # delivery ipl data sheet
 data=pd.read_csv('deliveries.csv')
@@ -110,31 +123,32 @@ data2=pd.read_csv('ipl-matches_data.csv')
 
 
 # st.title("Ipl information ")
+
 def All_teame_name(teame_info):
         st.title(teame_info)
         last5data=data2[(data2['Season'] == teame_info) &(data2['WinningTeam'].notnull()) &(data2['City'].notnull())][['City','Season','Date','TossWinner','WinningTeam']]
 
         # last5data = data[data['batsman'] == teame_info].drop(columns=['match_id','dismissal_kind','player_dismissed','penalty_runs','bye_runs']).set_index('batsman')
-        st.subheader('Most Resent  investor ')
+        st.subheader('All information this Activity')
         st.dataframe(last5data)
 
 
 st.title("IPL OLD Data")
-option1=st.sidebar.selectbox('Ipl Information old',['All ipl data','Select_Year','Highest'])
-if option1 == 'All ipl data':
+options=st.sidebar.selectbox('Ipl Old Information Data',['Select options','All ipl data','Select_Year','Highest'])
 
-    btn0 = st.sidebar.button("cate information")
+if options == 'All ipl data':
+    btn0 = st.sidebar.button("Click Me")
     if btn0:
-         iplinformation()
+         df2
 
-elif option1 == 'Select_Year':
+elif options == 'Select_Year':
     names=st.sidebar.selectbox(
-        'FInput one name Find All Info',
+        'Find All Info',
         data2['Season'].drop_duplicates().sort_values(ascending=True)
     )
     btn1=st.sidebar.button("Click Hear")
-    st.title("pyear")
-    st.write(names)
+    # st.title("plyear")
+    # st.write(names)
     if btn1:
       All_teame_name(names)
          
