@@ -136,7 +136,7 @@ def All_teame_name(teame_info):
 
 st.title("Team1 Bar Graph")
 # Count values
-team_count = data2["Teame1"].value_counts()
+team_count = data2["Team1"].value_counts()
 
 # Create graph
 fig, ax = plt.subplots()
