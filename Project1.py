@@ -48,7 +48,7 @@ def load_investor(investor):
 # /////////////////////////
 # df[df['investors'].str.contains('IDG Ventures',na=False)]['date'].head(22).value_counts().plot(kind='pie',autopct='%0.1f%%')
         # with col3:
-        big_year = df[df['investors'].str.contains(investor, na=False)]['date'].head(22).value_counts()
+        # big_year = df[df['investors'].str.contains(investor, na=False)]['date'].head(22).value_counts()
         #  st.subheader('Most biggest Date ')
         #  
         st.markdown(
@@ -63,7 +63,9 @@ def load_investor(investor):
         # # top 1 date 
         st.title("1 Big Data")
         big_year1 = df[df['investors'].str.contains(investor, na=False)][['city','date']].head(5).value_counts().plot(kind='pie')
-        st.write(big_year1)
+        figur,ax11 = plt.subplots()
+        ax11.pie(big_year1,labels=big_year1.index,autopct='%0.1f%%')
+        st.pyplot(figur)
              
 def overAllAnalysis():
     st.title('overall analysis')
