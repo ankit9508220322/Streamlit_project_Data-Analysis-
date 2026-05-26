@@ -56,13 +56,13 @@ def load_investor(investor):
              unsafe_allow_html=True
         )
             # 
-        fig3, ax3 = plt.subplots()
-        ax3.pie(big_year.values, labels=big_year.index.astype(str), autopct='%0.1f%%')
+        # fig3, ax3 = plt.subplots()
+        # ax3.pie(big_year.values, labels=big_year.index.astype(str), autopct='%0.1f%%')
              
-        st.pyplot(fig3)
-        # top 1 date 
+        # st.pyplot(fig3)
+        # # top 1 date 
         st.title("1 Big Data")
-        big_year1 = df[df['investors'].str.contains(investor, na=False)]['date'].head(5).value_counts()
+        big_year1 = df[df['investors'].str.contains(investor, na=False)][['city','date']].head(5).value_counts().plot(kind='pie')
         st.write(big_year1)
              
 def overAllAnalysis():
