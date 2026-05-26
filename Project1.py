@@ -32,18 +32,18 @@ def load_investor(investor):
 
         col1,col2,col3 = st.columns(3)
         with col1:
-        bid_serise=df[df['investors'].str.contains(investor)].groupby('startup')['amount'].sum().sort_values(ascending=False).head(5)
-        st.subheader('Most biggest investment Graph')
-        fig,ax = plt.subplots()
-        ax.bar(bid_serise.values, bid_serise.index)
-        st.pyplot(fig)
+             bid_serise=df[df['investors'].str.contains(investor)].groupby('startup')['amount'].sum().sort_values(ascending=False).head(5)
+             st.subheader('Most biggest investment Graph')
+             fig,ax = plt.subplots()
+             ax.bar(bid_serise.values, bid_serise.index)
+             st.pyplot(fig)
         
         with col2:
-        vertical = df[df['investors'].str.contains(investor,na=False)]['city'].value_counts().head()
-        st.subheader("City name")
-        fig1,ax1 = plt.subplots()
-        ax1.pie(vertical,labels=vertical.index,autopct='%0.1f%%')
-        st.pyplot(fig1)
+            vertical = df[df['investors'].str.contains(investor,na=False)]['city'].value_counts()
+            st.subheader("City name")
+            fig1,ax1 = plt.subplots()
+            ax1.pie(vertical,labels=vertical.index,autopct='%0.1f%%')
+            st.pyplot(fig1)
         
 # /////////////////////////
 # df[df['investors'].str.contains('IDG Ventures',na=False)]['date'].head(22).value_counts().plot(kind='pie',autopct='%0.1f%%')
