@@ -62,10 +62,8 @@ def load_investor(investor):
         # st.pyplot(fig3)
         # # top 1 date 
         st.title("1 Big Data")
-        big_year1 = df[df['investors'].str.contains(investor, na=False)][['city','date']].head(5).value_counts().plot(kind='pie')
-        figur,ax11 = plt.subplots()
-        ax11.pie(big_year1,labels=big_year1.index,autopct='%0.1f%%')
-        st.pyplot(figur)
+        big_year1 = df[df['investors'].str.contains(investor, na=False)][['city','date']].head(5).value_counts()
+        st.dataframe(big_year1)
              
 def overAllAnalysis():
     st.title('overall analysis')
