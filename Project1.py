@@ -37,7 +37,7 @@ def load_investor(investor):
              fig,ax = plt.subplots()
              ax.bar(bid_serise.values, bid_serise.index)
              st.pyplot(fig)
-        
+        # git graph
         with col2:
             vertical = df[df['investors'].str.contains(investor,na=False)]['city'].value_counts()
             st.subheader("City name")
