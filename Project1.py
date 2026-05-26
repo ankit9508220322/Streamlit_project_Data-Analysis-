@@ -15,8 +15,9 @@ def load_investor(investor):
         st.subheader('Most Resent  investor ')
         st.dataframe(last5data)
         # some print data
+
 # all data in biggest investament
-        bid_data=df[df['investors'].str.contains(investor)].groupby('startup')['city'].sum().sort_values(ascending=False)
+        bid_data=df[df['investors'].str.contains(investor)].groupby('startup')['amount'].sum().sort_values(ascending=False)
         st.markdown(
         "<h1 style='color:Purple;'>Most Top 5 City Name And Statup: </h1>",
              unsafe_allow_html=True
