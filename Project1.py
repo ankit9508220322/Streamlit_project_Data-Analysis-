@@ -8,9 +8,10 @@ df1 = pd.read_csv("simple1.csv", encoding='latin1')
 # st.dataframe(df)
 # st.sidebar.title("statup")
 
+# first function investor
 def load_investor(investor):
         st.title(investor)
-        last5data=df[df['investors'].str.contains(investor, na=False)][['date','city','startup','amount','round']]
+        last5data=df[df['investors'].str.contains(investor, na=False)].head(10)[['date','startup','city','round','amount']]
         st.subheader('Most Resent  investor ')
         st.dataframe(last5data)
         # some print data
