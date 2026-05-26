@@ -73,9 +73,10 @@ def overAllAnalysis():
     total1 = round(pd.to_numeric(df['amount'], errors='coerce').mean())
     st.metric('total',str(total1) + 'cr')
 
-
+# //////////////////////////////////////////////////////
 # main code and main page start 
 option=st.sidebar.selectbox('Select One Options',['Overall Analysis','Startup','investor'])
+
 if option == 'overall analysis':
     st.title("OverAll Analysis")
     btn0 = st.sidebar.button("Show OverAll Analysis")
@@ -83,12 +84,13 @@ if option == 'overall analysis':
          overAllAnalysis()
 
 
-
 elif option == 'Startup':
-    st.sidebar.selectbox('Select Startup',sorted(df['startup'].unique().tolist()))
+    st.sidebar.selectbox('Select Startup',sorted(tuple(list(s.unique()))))
+    # st.sidebar.selectbox('Select Startup',sorted(tuple(list(df1['startup'].drop_duplicates().unique()))))
+    
     btn1=st.sidebar.button("Find Startup")
-    st.title("Dont add data please nest time try ")
-    # st.title("Startup Analysis")
+    # st.title("Dont add data please nest time try ")
+    st.title("Startup Analysis")
     
 else:
     select_investor= st.sidebar.selectbox('Select investor',sorted(set(df['investors'].str.split(',').sum())))
@@ -97,6 +99,7 @@ else:
     if btn2:
         load_investor(select_investor)
         st.title("Investor Analysis")
+
 # /////////////////////////////////////////////
 
 
