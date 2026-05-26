@@ -85,7 +85,7 @@ if option == 'overall analysis':
 
 
 elif option == 'Startup':
-    st.sidebar.selectbox('Select Startup',sorted(tuple(list(s.unique()))))
+    st.sidebar.selectbox('Select Startup',sorted(tuple(list(df.unique()))))
     # st.sidebar.selectbox('Select Startup',sorted(tuple(list(df1['startup'].drop_duplicates().unique()))))
     
     btn1=st.sidebar.button("Find Startup")
