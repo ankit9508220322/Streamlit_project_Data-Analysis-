@@ -17,28 +17,29 @@ def load_investor(investor):
         # some print data
 
 # all data in biggest investament
-        bid_data=df[df['investors'].str.contains(investor)].groupby('startup')['amount'].sum().sort_values(ascending=False)
+        bid_data=df[df['investors'].str.contains(investor)].groupby('startup')['amount'].sum().sort_values(ascending=False).head(10)
         st.markdown(
-        "<h1 style='color:Purple;'>Most Top 5 City Name And Statup: </h1>",
+        "<h1 style='color:Purple;'>Most Top 5 biggest investor Name And Statup: </h1>",
              unsafe_allow_html=True
         )
         st.dataframe(bid_data)
+
         # graph plio in chart
         st.markdown(
             "<h1 style='color:red;'>This is my project All investor Information include: </h1>",
               unsafe_allow_html=True
         )
 
-        # col1,col2,col3 = st.columns(3)
-        # with col1:
-        bid_serise=df[df['investors'].str.contains(investor)].groupby('startup')['amount'].sum().sort_values(ascending=False).head(10)
+        col1,col2,col3 = st.columns(3)
+        with col1:
+        bid_serise=df[df['investors'].str.contains(investor)].groupby('startup')['amount'].sum().sort_values(ascending=False).head(5)
         st.subheader('Most biggest investment Graph')
         fig,ax = plt.subplots()
         ax.bar(bid_serise.values, bid_serise.index)
         st.pyplot(fig)
         
-        # with col2:
-        vertical = df[df['investors'].str.contains(investor,na=False)]['city'].value_counts()
+        with col2:
+        vertical = df[df['investors'].str.contains(investor,na=False)]['city'].value_counts().head()
         st.subheader("City name")
         fig1,ax1 = plt.subplots()
         ax1.pie(vertical,labels=vertical.index,autopct='%0.1f%%')
