@@ -88,7 +88,7 @@ elif option == 'Startup':
     st.sidebar.selectbox('Select Startup',sorted(df['startup'].unique().tolist()))
     btn1=st.sidebar.button("Find Startup")
     st.title("Dont add data please nest time try ")
-    st.title("Startup Analysis")
+    # st.title("Startup Analysis")
     
 else:
     select_investor= st.sidebar.selectbox('Select investor',sorted(set(df['investors'].str.split(',').sum())))
@@ -100,93 +100,93 @@ else:
 # /////////////////////////////////////////////
 
 
-# cricket information
-df2 = pd.read_csv("ipl20081.csv")
-df2.drop_duplicates(subset=[
-     "match_id",
-     "season_id",
-     "balls_per_over",
-     "city",
-     "match_date",
-     "gender",
-     "match_type"
-     ])
+# # cricket information
+# df2 = pd.read_csv("ipl20081.csv")
+# df2.drop_duplicates(subset=[
+#      "match_id",
+#      "season_id",
+#      "balls_per_over",
+#      "city",
+#      "match_date",
+#      "gender",
+#      "match_type"
+#      ])
 
 
-# def iplinformation():
-#      pass
-#     # st.title("IPL OLD Data")
-#     # df2
-# iplinformation()
+# # def iplinformation():
+# #      pass
+# #     # st.title("IPL OLD Data")
+# #     # df2
+# # iplinformation()
 
-df2 = pd.read_csv("ipl20081.csv")
-# delivery ipl data sheet
-data=pd.read_csv('deliveries.csv')
+# df2 = pd.read_csv("ipl20081.csv")
+# # delivery ipl data sheet
+# data=pd.read_csv('deliveries.csv')
 
-# olt data this
-data2=pd.read_csv('ipl-matches_data.csv') 
-def All_teame_name(teame_info):
-        st.title(teame_info)
-        last5data=data2[(data2['Season'] == teame_info) &(data2['WinningTeam'].notnull()) &(data2['City'].notnull())][['City','Season','Date','TossWinner','WinningTeam']]
+# # olt data this
+# data2=pd.read_csv('ipl-matches_data.csv') 
+# def All_teame_name(teame_info):
+#         st.title(teame_info)
+#         last5data=data2[(data2['Season'] == teame_info) &(data2['WinningTeam'].notnull()) &(data2['City'].notnull())][['City','Season','Date','TossWinner','WinningTeam']]
         
-        # last5data = data[data['batsman'] == teame_info].drop(columns=['match_id','dismissal_kind','player_dismissed','penalty_runs','bye_runs']).set_index('batsman')
-        st.subheader('All information this Activity')
-        st.dataframe(last5data)
-        st.title("second information ")
-        most=data2[["Team1","Team2","Venue",'WinningTeam']].drop_duplicates(subset=['Team1','Team2','Venue']).head()
-        st.dataframe(most)
+#         # last5data = data[data['batsman'] == teame_info].drop(columns=['match_id','dismissal_kind','player_dismissed','penalty_runs','bye_runs']).set_index('batsman')
+#         st.subheader('All information this Activity')
+#         st.dataframe(last5data)
+#         st.title("second information ")
+#         most=data2[["Team1","Team2","Venue",'WinningTeam']].drop_duplicates(subset=['Team1','Team2','Venue']).head()
+#         st.dataframe(most)
 
        
-st.title("IPL OLD Data")
-options=st.sidebar.selectbox('Ipl Old Information Data',['Select options','All ipl data','Select_Year','Highest'])
+# st.title("IPL OLD Data")
+# options=st.sidebar.selectbox('Ipl Old Information Data',['Select options','All ipl data','Select_Year','Highest'])
 
-if options == 'All ipl data':
-    btn0 = st.sidebar.button("Click Me")
-    if btn0:
-         df2
+# if options == 'All ipl data':
+#     btn0 = st.sidebar.button("Click Me")
+#     if btn0:
+#          df2
 
-elif options == 'Select_Year':
-    names=st.sidebar.selectbox(
-        'Find All Info',
-        data2['Season'].drop_duplicates().sort_values(ascending=True)
-    )
-    btn1=st.sidebar.button("Click Hear")
-    if btn1:
-      All_teame_name(names)
+# elif options == 'Select_Year':
+#     names=st.sidebar.selectbox(
+#         'Find All Info',
+#         data2['Season'].drop_duplicates().sort_values(ascending=True)
+#     )
+#     btn1=st.sidebar.button("Click Hear")
+#     if btn1:
+#       All_teame_name(names)
 
-else:
-    playrs_Name= st.sidebar.selectbox(
-        'Teame Name',
-        data['batting_team'].drop_duplicates().tolist()
-    )
-    btn2=st.sidebar.button("playrs_Name")
+# else:
+#     playrs_Name= st.sidebar.selectbox(
+#         'Teame Name',
+#         data['batting_team'].drop_duplicates().tolist()
+#     )
+#     btn2=st.sidebar.button("playrs_Name")
 
-    if btn2:
-        All_teame_name(playrs_Name)
-    # //////////////////////
+#     if btn2:
+#         All_teame_name(playrs_Name)
+#     # //////////////////////
 
 
-# all ipl 2026 data function 
-ipl26 = pd.read_csv("ipl_2026_deliveries.csv")
+# # all ipl 2026 data function 
+# ipl26 = pd.read_csv("ipl_2026_deliveries.csv")
 
-def All_2026_data(ipl_2026):
+# def All_2026_data(ipl_2026):
 
-     st.title(f"one Cricketer information 2026 IPL - {ipl_2026}")
+#      st.title(f"one Cricketer information 2026 IPL - {ipl_2026}")
 
-     Alldata2026 = (ipl26[ipl26['striker'] == ipl_2026].groupby(['striker','season','date','batting_team'],as_index=False)['runs_of_bat'].sum().sort_values(by='runs_of_bat', ascending=True))
+#      Alldata2026 = (ipl26[ipl26['striker'] == ipl_2026].groupby(['striker','season','date','batting_team'],as_index=False)['runs_of_bat'].sum().sort_values(by='runs_of_bat', ascending=True))
 
-    #  st.subheader("one teame information",st.title(ipl_2026))
-     st.dataframe(Alldata2026)
+#     #  st.subheader("one teame information",st.title(ipl_2026))
+#      st.dataframe(Alldata2026)
 
-st.title("New_2026_ipl_data")
+# st.title("New_2026_ipl_data")
 
-ipl_2026 = st.sidebar.selectbox('Ipl_2026_info',ipl26['striker'].drop_duplicates().tolist())
+# ipl_2026 = st.sidebar.selectbox('Ipl_2026_info',ipl26['striker'].drop_duplicates().tolist())
 
-btni = st.sidebar.button("Click me",key="btni")
-if btni:
-     All_2026_data(ipl_2026)
+# btni = st.sidebar.button("Click me",key="btni")
+# if btni:
+#      All_2026_data(ipl_2026)
 
-# ////////////////////////////////// new 2022
+# # ////////////////////////////////// new 2022
 
 
 
