@@ -77,6 +77,7 @@ def overAllAnalysis():
 # main code and main page start 
 option=st.sidebar.selectbox('Select One Options',['Overall Analysis','Startup','investor'])
 if option == 'overall analysis':
+    st.title("OverAll Analysis")
     btn0 = st.sidebar.button("Show OverAll Analysis")
     if btn0:
          overAllAnalysis()
@@ -90,10 +91,12 @@ elif option == 'Startup':
     st.title("Startup Analysis")
     
 else:
-    select_investor= st.sidebar.selectbox('Select startup',sorted(set(df['investors'].str.split(',').sum())))
+    select_investor= st.sidebar.selectbox('Select investor',sorted(set(df['investors'].str.split(',').sum())))
+    
     btn2=st.sidebar.button("find invester")
     if btn2:
         load_investor(select_investor)
+        st.title("Investor Analysis")
 # /////////////////////////////////////////////
 
 
