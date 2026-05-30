@@ -1,7 +1,13 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-st.set_page_config(layout='wide',page_title="startup")
+# from loginPage import  user_info
+
+# st.set_page_config(page_title="Main Project")
+
+# st.title("My Main Project")
+# st.set_page_config(layout='wide',page_title="startup")
+
 # df = pd.read_csv("startup_cleen.csv")
 # df = pd.read_csv('clin_startup.csv')
 # df= pd.read_csv('ClineStatup_Data.csv')
@@ -81,13 +87,57 @@ def load_investor(investor):
         big_year1 = df[df['investors'].str.contains(investor, na=False)][['city','date']].head(5)
         st.dataframe(big_year1)
             #  //////////////////////////////
-# only amount data in file
-# amount =pd.read_csv("statup_amount.csv")
+def Startup_data(startp):
+    st.header(startp)
+    # Selected startup ka data filter karo
+    temp_df = df[df['startup'] == startp][['city', 'startup', 'investors', 'amount']].sort_values(
+    by=['city', 'amount', 'startup', 'investors'],
+    ascending=[True, True, True, True]
+)
+
+    # Startup details
+    st.subheader("Startup Details")
+    st.dataframe(temp_df)
+    yeara = df[df['startup'] == startp][['year','month','day','date']].reset_index(drop=True)
+    st.dataframe(yeara)
+    st.title("Top 10 Startup ")
+    topdata=df.groupby('startup')['amount'].sum().sort_values(ascending=False).head(10)
+    st.dataframe(topdata)
+    # Total funding
+    st.subheader("amount analysis")
+    total = temp_df['amount'].sum()
+    avg_funding = temp_df['amount'].mean()
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+       st.metric("Total Funding", f"{total:,.0f}")
+
+    with col2:
+      st.metric("Average Funding", f"{avg_funding:,.0f}")
+    
+
+    topdata = df.groupby('startup')['amount'].sum() .sort_values(ascending=False).head(10)
+    fig, ax = plt.subplots(figsize=(10,5))
+    ax.bar(topdata.index, topdata.values)
+
+    ax.set_title("Top 10 Funded Startups")
+    ax.set_xlabel("Startup")
+    ax.set_ylabel("Funding Amount")
+    plt.xticks(rotation=45)
+    st.pyplot(fig)
+
+
+st.title("startup name and investor")
+
 def All_year(years):
      st.title("year Analysis")
      Year = df[df['year'] == years][['date', 'city', 'startup', 'amount']].drop_duplicates(subset=['startup','date','city','amount'])
      st.dataframe(Year)
-
+    #  //////////////////////////
+     st.title("Top 10 Name 4 Column ")
+     Year2 = df[['startup',"investors",'amount','month']].drop_duplicates(subset=['startup','investors','amount','month']).head(10)
+     st.dataframe(Year2)
 
 def overAllAnalysis():
     st.title('Overall Analysis')
@@ -128,13 +178,15 @@ if option == 'Overall Analysis':
 
 
 elif option == 'Startup':
-    st.sidebar.selectbox('Select Startup',sorted(tuple(list(df['startup'].drop_duplicates().unique()))))
-    
-    btn1=st.sidebar.button("Find Startup")
-    # st.title("Dont add data please nest time try ")
+
+    startup = st.sidebar.selectbox('Select Startup',sorted(df['startup'].drop_duplicates().unique()))
     st.title("Startup Analysis")
+    btn1 = st.sidebar.button("Find Startup")
+
     if btn1:
-         mom_graph()
+        Startup_data(startup)
+        mom_graph()
+
 
 elif option == "investor":
       select_investor= st.sidebar.selectbox('Select investor',sorted(set(df['investors'].str.split(',').sum())))
@@ -152,6 +204,7 @@ else:
      if btny:
           All_year(select_year)
           mom_graph()
+          
 
 # # cricket information
 df2 = pd.read_csv("ipl20081.csv")
