@@ -1,16 +1,19 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-# from loginPage import  user_info
 
-# st.set_page_config(page_title="Main Project")
+import streamlit as st
 
-# st.title("My Main Project")
-# st.set_page_config(layout='wide',page_title="startup")
+st.set_page_config(
+    page_title="Startup Analysis",
+    layout="wide"
+)
 
-# df = pd.read_csv("startup_cleen.csv")
-# df = pd.read_csv('clin_startup.csv')
-# df= pd.read_csv('ClineStatup_Data.csv')
+with open("style.css") as f:
+    st.markdown(
+        f"<style>{f.read()}</style>",
+        unsafe_allow_html=True
+    )
 df=pd.read_csv('Startup_data1.csv')
 df1 = pd.read_csv("simple1.csv", encoding='latin1')
 # st.dataframe(df)
