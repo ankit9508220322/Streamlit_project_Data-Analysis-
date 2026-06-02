@@ -44,6 +44,7 @@ def mom_graph():
     st.pyplot(fig3)
 
 # first function investor
+
 def load_investor(investor):
         st.title(investor)
         last5data=df[df['investors'].str.contains(investor, na=False)].head(10)[['date','startup','city','round','amount']]
@@ -51,7 +52,7 @@ def load_investor(investor):
         st.dataframe(last5data)
         # some print data
 
-# all data in biggest investament
+ # all data in biggest investament
         bid_data=df[df['investors'].str.contains(investor)].groupby('startup')['amount'].sum().sort_values(ascending=False).head(10)
         st.markdown(
         "<h1 style='color:Purple;'>Most Top 5 biggest investor Name And Statup: </h1>",
@@ -74,7 +75,7 @@ def load_investor(investor):
             ax.bar(big_series.index,big_series.values)
             st.pyplot(fig)
 
-# git graph
+ # git graph
         with col2:
             vertical = df[df['investors'].str.contains(investor, na=False)]['city'].dropna().value_counts()
             st.subheader("City name")
@@ -90,17 +91,18 @@ def load_investor(investor):
         big_year1 = df[df['investors'].str.contains(investor, na=False)][['city','date']].head(5)
         st.dataframe(big_year1)
             #  //////////////////////////////
+
 def Startup_data(startp):
     st.header(startp)
     # Selected startup ka data filter karo
-    temp_df = df[df['startup'] == startp][['city', 'startup', 'investors', 'amount']].sort_values(
-    by=['city', 'amount', 'startup', 'investors'],
+    temp_df = df[df['startup'] == startp][['city', 'startup', 'investors', 'amount']].sort_values(by=['city', 'amount', 'startup', 'investors'],
     ascending=[True, True, True, True]
 )
-
     # Startup details
-    st.subheader("Startup Details")
+    st.subheader(temp_df)
     st.dataframe(temp_df)
+    # two data freame
+
     yeara = df[df['startup'] == startp][['year','month','day','date']].reset_index(drop=True)
     st.dataframe(yeara)
     st.title("Top 10 Startup ")
@@ -181,7 +183,6 @@ if option == 'Overall Analysis':
 
 
 elif option == 'Startup':
-
     startup = st.sidebar.selectbox('Select Startup',sorted(df['startup'].drop_duplicates().unique()))
     st.title("Startup Analysis")
     btn1 = st.sidebar.button("Find Startup")
@@ -297,6 +298,132 @@ if btni:
 
 # ////////////////////////////////// new 2022
 
+movies = pd.read_csv("imdb-1000.csv")
 
+# def movies_data():
 
+#     movi_imdb = st.sidebar.selectbox('Movi Information',['Select options', 'Select_Year', 'Genrs_name'])
+#     # Year Wise Data
+#     if movi_imdb == 'Select_Year':
+
+#         selected_year = st.sidebar.selectbox('Find All Info',sorted(movies['Released_Year'].dropna().unique(), reverse=True))
+#         btn1 = st.sidebar.button("Click Here")
+
+#         if btn1:
+#             st.subheader(f"Movies Released in {selected_year}")
+
+#             year_data = movies[movies['Released_Year'] == selected_year][['Series_Title', 'Genre', 'Director', 'Metascore']]
+#             st.dataframe(year_data)
+
+#     # Genre Wise Data
+#     elif movi_imdb == 'Genrs_name':
+
+#         selected_genre = st.sidebar.selectbox('Select Genre',sorted(movies['Genre'].dropna().unique()))
+
+#         btn2 = st.sidebar.button("Show Genre Data")
+
+#         if btn2:
+#             st.subheader(f"Genre : {selected_genre}")
+
+#             genre_data = movies[
+#                 movies['Genre'] == selected_genre
+#             ][['Series_Title', 'Released_Year', 'Director', 'Metascore']]
+
+#             st.dataframe(genre_data)
+
+# movies_data()
+def Movi_information(choice):
+    All_movi_data = movies[movies['Genre'] == choice][['Released_Year','Genre','Director']].drop_duplicates()
+    st.subheader(choice)
+    st.dataframe(All_movi_data)
+    # //////////////// only two data
+    st.title("second info")
+    All_movi_data1 = movies[movies['Genre'] == choice][['Released_Year','Director','Gross']].drop_duplicates()
+    st.dataframe(All_movi_data1)
+    # ///////////  Third information
+    st.title("top 5 genres by total earning")
+    most_earn=movies.groupby('Genre').sum()['Gross'].sort_values(ascending=False).head(5).reset_index()
+    st.dataframe(most_earn)
+    # ////////////////////////////////////////////
+    st.title("Jai bajrang bali")
+    everyData=movies.groupby('Genre').agg({
+    'Director': 'first',
+    'Released_Year': 'first',
+    'Gross': 'sum'
+ }).sort_values('Gross', ascending=False)
+    st.dataframe(everyData)
+    #  four graph
+    st.title("graph to do")
+    fig, ax = plt.subplots(figsize=(8,4))
+
+    movies.groupby('Genre')['Gross'] \
+      .sum() \
+      .sort_values(ascending=False) \
+      .head(5) \
+      .plot(kind='bar', ax=ax)
+    
+    ax.set_title('Top 5 Genres by Gross Collection')
+    ax.set_xlabel('Genre')
+    ax.set_ylabel('Gross')
+    st.pyplot(fig)
+
+    st.title("highest rated movie of each genre")
+# import matplotlib.pyplot as plt
+
+    fig, ax = plt.subplots(figsize=(10,5))
+
+    movies.groupby('Genre')['IMDB_Rating'] \
+        .max() \
+        .sort_values(ascending=False) \
+        .head(10) \
+        .plot(kind='barh', ax=ax)
+
+    ax.set_title('Top Genres by Maximum IMDb Rating')
+    ax.set_xlabel('IMDb Rating')
+    ax.set_ylabel('Genre')
+
+    st.pyplot(fig)
+    # ////////////////////////////////////////////
+    st.title("number of movies done by each actor")
+    done_each=movies.groupby('Star1')['Series_Title'].count().sort_values(ascending=False).reset_index()
+    st.dataframe(done_each)
+    # ///////////////////////////////////
+def Director_info(director):
+    st.subheader(director)
+
+    director_genrs = movies[movies['Director'] == director][
+        ['Series_Title','Released_Year','Genre','Gross','IMDB_Rating']
+    ].sort_values('Gross', ascending=False)
+
+    st.dataframe(director_genrs)
+    # //////////////////////////////////////////// new code
+    st.title("Genre And Director With Released_Year And total Gross")
+    all_director=movies.groupby('Genre').agg({
+    'Director': 'first',
+    'Gross': 'sum',
+    'Released_Year': 'first'
+    }).sort_values('Gross', ascending=False)
+    st.dataframe(all_director)
+    # //////////////////////////////new code
+    st.title("Most Voted Movies Top 10")
+    voats=movies.sort_values('No_of_Votes', ascending=False)[['Series_Title','No_of_Votes']].head(10)
+    st.dataframe(voats)
+    # //////////////////////////////new data code
+    st.title("Director-wise Total Gross")
+    data_earn=movies.groupby('Director')['Gross'].sum().sort_values(ascending=False)
+    st.dataframe(data_earn)
+movi_info = st.sidebar.selectbox('Movi information',["select Option","Genrs_name","Director_Name","Select_year"])
+
+if movi_info == "Genrs_name":
+    yearm = st.sidebar.selectbox("select One",sorted(movies['Genre'].dropna().unique()))
+    btnm = st.sidebar.button("Click")
+
+    if btnm:
+        Movi_information(yearm)
+
+elif movi_info == 'Director_Name':
+    Director = st.sidebar.selectbox("Select One",sorted(movies['Director'].dropna().unique()))
+
+    if st.sidebar.button("Click"):
+        Director_info(Director)
 
